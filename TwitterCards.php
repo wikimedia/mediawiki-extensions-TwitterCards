@@ -18,11 +18,11 @@
 if ( !defined( 'MEDIAWIKI' ) ) die( "This is an extension to the MediaWiki package and cannot be run standalone." );
 
 $wgExtensionCredits['parserhook'][] = array (
-	"path" => __FILE__,
-	"name" => "TwitterCards",
-	"author" => "Harsh Kothari",
-	'descriptionmsg' => 'TwitterCards-desc',
-	'url' => 'http://www.mediawiki.org/wiki/Extension:TwitterCards',
+	'path' => __FILE__,
+	'name' => 'TwitterCards',
+	'author' => 'Harsh Kothari',
+	'descriptionmsg' => 'twittercards-desc',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:TwitterCards',
 );
 
 $wgExtensionMessagesFiles['TwitterCardsMagic'] = __DIR__ . '/TwitterCards.magic.php';
