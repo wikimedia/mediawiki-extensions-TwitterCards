@@ -16,5 +16,11 @@ $messages['en'] = array(
  */
 $messages['qqq'] = array(
 	'twittercards-desc' => '{{desc|name=TwitterCards|url=https://www.mediawiki.org/wiki/Extension:TwitterCards}}',
+);
 
+/** German (Deutsch)
+ * @author Metalhead64
+ */
+$messages['de'] = array(
+	'twittercards-desc' => 'Ermöglicht den Anhang von Medienerfahrungen an Tweets, die auf den Inhalt verlinken',
 );
