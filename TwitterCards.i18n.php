@@ -28,6 +28,13 @@ $messages['de'] = array(
 	'twittercards-desc' => 'Ermöglicht den Anhang von Medienerfahrungen an Tweets, die auf den Inhalt verlinken',
 );
 
+/** French (français)
+ * @author Gomoko
+ */
+$messages['fr'] = array(
+	'twittercards-desc' => 'Ajoute la possibilité d’attacher des expériences de média aux tweets qui lient du contenu',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
