@@ -42,6 +42,13 @@ $messages['gl'] = array(
 	'twittercards-desc' => 'Engade a posibilidade de incorporar experiencias multimedia aos chíos que ligan co contido',
 );
 
+/** Italian (italiano)
+ * @author Beta16
+ */
+$messages['it'] = array(
+	'twittercards-desc' => 'Aggiunge la possibilità di allegare esperienze multimediali ai Tweet con collegamento al contenuto',
+);
+
 /** Japanese (日本語)
  * @author Shirayuki
  */
