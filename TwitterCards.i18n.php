@@ -69,3 +69,10 @@ $messages['ko'] = array(
 $messages['mk'] = array(
 	'twittercards-desc' => 'Овозможува приложување на доживувања на сликите/снимките што ги наведувате во објавите на Twitter',
 );
+
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'twittercards-desc' => "Aggiugne 'a possibbelità de attaccà le esperienze de filmate a le cinguettìe ca collegane a 'u condenute",
+);
