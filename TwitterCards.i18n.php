@@ -76,3 +76,10 @@ $messages['mk'] = array(
 $messages['roa-tara'] = array(
 	'twittercards-desc' => "Aggiugne 'a possibbelità de attaccà le esperienze de filmate a le cinguettìe ca collegane a 'u condenute",
 );
+
+/** Ukrainian (українська)
+ * @author Ата
+ */
+$messages['uk'] = array(
+	'twittercards-desc' => 'Додає можливість прикріпляти медіа-додатки до твітів, що посилаються на вміст',
+);
