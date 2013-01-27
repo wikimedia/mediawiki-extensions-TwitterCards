@@ -8,7 +8,7 @@ $messages = array();
  * @author Harsh Kothari
  */
 $messages['en'] = array(
-	'twittercards-desc' => 'Adds possibility to attach media experiences to Tweets that link to content',
+	'twittercards-desc' => 'Adds possibility to attach media experiences to tweets that link to content',
 );
 
 /** Message documentation (Message documentation)
