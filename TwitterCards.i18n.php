@@ -70,6 +70,13 @@ $messages['mk'] = array(
 	'twittercards-desc' => 'Овозможува приложување на доживувања на сликите/снимките што ги наведувате во објавите на Twitter',
 );
 
+/** Dutch (Nederlands)
+ * @author Siebrand
+ */
+$messages['nl'] = array(
+	'twittercards-desc' => 'Maakt het mogelijk om mediaervaringen toe te voegen aan tweets die verwijzen naar content',
+);
+
 /** tarandíne (tarandíne)
  * @author Joetaras
  */
