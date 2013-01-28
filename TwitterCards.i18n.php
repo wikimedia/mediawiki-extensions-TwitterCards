@@ -21,6 +21,13 @@ Another description:
 * "Adds meta tags to enable Twitter cards on Mediawiki."',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'twittercards-desc' => "Amiesta la posibilidá d'incorporar esperiencies multimedia a los tuits qu'enllacen con conteníu",
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */
