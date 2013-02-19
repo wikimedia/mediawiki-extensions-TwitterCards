@@ -104,3 +104,10 @@ $messages['roa-tara'] = array(
 $messages['uk'] = array(
 	'twittercards-desc' => 'Додає можливість прикріпляти медіа-додатки до твітів, що посилаються на вміст',
 );
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Yfdyh000
+ */
+$messages['zh-hans'] = array(
+	'twittercards-desc' => '对推文到内容链接增加附加多媒体内容体验的可能',
+);
