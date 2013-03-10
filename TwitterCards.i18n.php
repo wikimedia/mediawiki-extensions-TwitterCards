@@ -98,6 +98,13 @@ $messages['roa-tara'] = array(
 	'twittercards-desc' => "Aggiugne 'a possibbelità de attaccà le esperienze de filmate a le cinguettìe ca collegane a 'u condenute",
 );
 
+/** Swedish (svenska)
+ * @author WikiPhoenix
+ */
+$messages['sv'] = array(
+	'twittercards-desc' => 'Gör det möjligt att bifoga multimedia till twittrar som länkar till innehåll',
+);
+
 /** Ukrainian (українська)
  * @author Ата
  */
