@@ -56,6 +56,13 @@ $messages['gl'] = array(
 	'twittercards-desc' => 'Engade a posibilidade de incorporar experiencias multimedia aos chíos que ligan co contido',
 );
 
+/** Upper Sorbian (hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'twittercards-desc' => 'Přidawa móžnosć, medijowe nazhonjenja k tweetam připowěsnyć, kotrež na wobsah wotkazuja',
+);
+
 /** Italian (italiano)
  * @author Beta16
  */
