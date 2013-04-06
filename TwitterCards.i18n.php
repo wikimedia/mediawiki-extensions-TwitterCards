@@ -84,6 +84,13 @@ $messages['ko'] = array(
 	'twittercards-desc' => '내용으로 링크한 트윗에 미디어 경험을 첨부할 가능성을 추가합니다',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'twittercards-desc' => 'Deiht Befähle en et Wiki, öm „Twitter-Kaate“ möjelesch ze maache.',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
