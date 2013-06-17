@@ -132,3 +132,10 @@ $messages['uk'] = array(
 $messages['zh-hans'] = array(
 	'twittercards-desc' => '对推文到内容链接增加附加多媒体内容体验的可能',
 );
+
+/** Traditional Chinese (中文（繁體）‎)
+ * @author Justincheng12345
+ */
+$messages['zh-hant'] = array(
+	'twittercards-desc' => '容許於Twitter推文附加媒體使用經驗',
+);
