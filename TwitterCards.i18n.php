@@ -16,7 +16,7 @@ $messages['en'] = array(
  * @author Shirayuki
  */
 $messages['qqq'] = array(
-	'twittercards-desc' => '{{desc|name=TwitterCards|url=https://www.mediawiki.org/wiki/Extension:TwitterCards}}
+	'twittercards-desc' => '{{desc|name=Twitter Cards|url=http://www.mediawiki.org/wiki/Extension:TwitterCards}}
 Another description:
 * "Adds meta tags to enable Twitter cards on Mediawiki."',
 );
