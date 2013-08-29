@@ -105,6 +105,13 @@ $messages['nl'] = array(
 	'twittercards-desc' => 'Maakt het mogelijk om mediaervaringen toe te voegen aan tweets die verwijzen naar content',
 );
 
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'twittercards-desc' => "Apond la possibilitat d’estacar d'experiéncias de mèdia als tweets que ligan de contengut",
+);
+
 /** tarandíne (tarandíne)
  * @author Joetaras
  */
