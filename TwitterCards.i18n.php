@@ -119,6 +119,13 @@ $messages['roa-tara'] = array(
 	'twittercards-desc' => "Aggiugne 'a possibbelità de attaccà le esperienze de filmate a le cinguettìe ca collegane a 'u condenute",
 );
 
+/** Russian (русский)
+ * @author Okras
+ */
+$messages['ru'] = array(
+	'twittercards-desc' => 'Добавляет возможность прикреплять расширенные мета-данные в твитам, которые ссылаются на материал',
+);
+
 /** Swedish (svenska)
  * @author WikiPhoenix
  */
