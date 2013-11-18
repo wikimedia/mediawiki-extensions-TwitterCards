@@ -39,7 +39,7 @@ $wgHooks['BeforePageDisplay'][] = 'efTwitterCardsHook';
  * @return Boolean always true, to go on with BeforePageDisplay processing
  */
 function efTwitterCardsHook( &$out, &$sk ) {
-	global $wgLogo, $wgSitename, $wgArticle, $wgUploadPath, $wgServer, $wgArticleId;
+	global $wgLogo, $wgSitename, $wgUploadPath, $wgServer, $wgArticleId;
 
 	$title = $out->getTitle();
 	$isMainpage = $title->isMainPage();
@@ -48,15 +48,8 @@ function efTwitterCardsHook( &$out, &$sk ) {
 	$meta["twitter:card"] = "photo"; // current proof of concept is tailored to work with images
 	$meta["twitter:site"] = $wgSitename;
 
-	// Processes only articles
-	if ( isset( $wgArticle ) ) {
-		$myArticle = $wgArticle;
-	} else {
-		return true;
-	}
-
 	$dbr = wfGetDB( DB_SLAVE );
-	$pageId = $myArticle->getId();
+	$pageId = $out->getWikiPage()->getId();
 	$res = $dbr->select(
 		'revision',
 		'rev_user_text',
