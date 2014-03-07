@@ -42,6 +42,13 @@ $messages['es'] = array(
 	'twittercards-desc' => 'Añade la posibilidad de adjuntar experiencia multimedia a los tuits con enlaces a contenido',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'twittercards-desc' => 'افزودن امکان برای ضمیمه کردن تجربیات رسانه برای توییت کردن لینک به محتوا',
+);
+
 /** French (français)
  * @author Gomoko
  */
