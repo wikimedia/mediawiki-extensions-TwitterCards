@@ -44,9 +44,10 @@ $messages['es'] = array(
 
 /** Persian (فارسی)
  * @author Armin1392
+ * @author Ebraminio
  */
 $messages['fa'] = array(
-	'twittercards-desc' => 'افزودن امکان برای ضمیمه کردن تجربیات رسانه برای توییت کردن لینک به محتوا',
+	'twittercards-desc' => 'افزودن امکان برای ضمیمه کردن تجربیات رسانه برای توییت کردن پیوند به محتوا',
 );
 
 /** French (français)
