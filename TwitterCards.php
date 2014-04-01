@@ -26,6 +26,7 @@ $wgExtensionCredits['parserhook'][] = array (
 );
 
 $wgExtensionMessagesFiles['TwitterCardsMagic'] = __DIR__ . '/TwitterCards.magic.php';
+$wgMessagesDirs['TwitterCards'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['TwitterCards'] = __DIR__ . '/TwitterCards.i18n.php';
 
 $wgHooks['BeforePageDisplay'][] = 'efTwitterCardsHook';
