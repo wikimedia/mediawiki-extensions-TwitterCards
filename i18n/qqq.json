@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Raymond",
-            "Shirayuki"
-        ]
-    },
-    "twittercards-desc": "{{desc|name=Twitter Cards|url=http://www.mediawiki.org/wiki/Extension:TwitterCards}}\nAnother description:\n* \"Adds meta tags to enable Twitter cards on Mediawiki.\""
+	"@metadata": {
+		"authors": [
+			"Raymond",
+			"Shirayuki"
+		]
+	},
+	"twittercards-desc": "{{desc|name=Twitter Cards|url=http://www.mediawiki.org/wiki/Extension:TwitterCards}}\nAnother description:\n* \"Adds meta tags to enable Twitter cards on Mediawiki.\""
 }

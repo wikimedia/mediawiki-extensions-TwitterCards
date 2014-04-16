@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Shirayuki"
-        ]
-    },
-    "twittercards-desc": "MediaWiki で Twitter カードを有効にするための meta タグを追加する"
+	"@metadata": {
+		"authors": [
+			"Shirayuki"
+		]
+	},
+	"twittercards-desc": "MediaWiki で Twitter カードを有効にするための meta タグを追加する"
 }

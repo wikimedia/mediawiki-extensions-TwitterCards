@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Gomoko"
-        ]
-    },
-    "twittercards-desc": "Ajoute la possibilité d’attacher des expériences de média aux tweets qui lient du contenu"
+	"@metadata": {
+		"authors": [
+			"Gomoko"
+		]
+	},
+	"twittercards-desc": "Ajoute la possibilité d’attacher des expériences de média aux tweets qui lient du contenu"
 }
