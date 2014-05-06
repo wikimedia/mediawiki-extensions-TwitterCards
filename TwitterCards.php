@@ -3,6 +3,7 @@
  * TwitterCards
  * Extensions
  * @author Harsh Kothari (http://mediawiki.org/wiki/User:Harsh4101991) <harshkothari410@gmail.com>
+ * @author Kunal Mehta <legoktm@gmail.com>
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  *
  * This program is free software; you can redistribute it and/or
@@ -15,102 +16,89 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-if ( !defined( 'MEDIAWIKI' ) ) die( "This is an extension to the MediaWiki package and cannot be run standalone." );
+if ( !defined( 'MEDIAWIKI' ) ) {
+	die( "This is an extension to the MediaWiki package and cannot be run standalone." );
+}
 
-$wgExtensionCredits['parserhook'][] = array (
+$wgExtensionCredits['other'][] = array (
 	'path' => __FILE__,
 	'name' => 'TwitterCards',
-	'author' => 'Harsh Kothari',
+	'author' => array( 'Harsh Kothari', 'Kunal Mehta' ),
 	'descriptionmsg' => 'twittercards-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:TwitterCards',
 );
+
+/**
+ * Set this to your wiki's twitter handle
+ * for example: '@wikipedia'
+ * @var string
+ */
+$wgTwitterCardsHandle = '';
 
 $wgExtensionMessagesFiles['TwitterCardsMagic'] = __DIR__ . '/TwitterCards.magic.php';
 $wgMessagesDirs['TwitterCards'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['TwitterCards'] = __DIR__ . '/TwitterCards.i18n.php';
 
-$wgHooks['BeforePageDisplay'][] = 'efTwitterCardsHook';
+$wgHooks['BeforePageDisplay'][] = 'efTwitterCardsSummary';
 
 /**
  * Adds TwitterCards metadata for Images.
  * This is a callback method for the BeforePageDisplay hook.
  *
- * @param &$out OutputPage The output page
- * @param &$sk SkinTemplate The skin template
- * @return Boolean always true, to go on with BeforePageDisplay processing
+ * @param OutputPage &$out
+ * @param SkinTemplate &$sk
+ * @return bool
  */
-function efTwitterCardsHook( &$out, &$sk ) {
-	global $wgLogo, $wgSitename, $wgUploadPath, $wgServer, $wgArticleId;
+function efTwitterCardsSummary( OutputPage &$out, SkinTemplate &$sk ) {
+	global $wgTwitterCardsHandle;
 
-	$title = $out->getTitle();
-	$isMainpage = $title->isMainPage();
-
-	$meta = array();
-	$meta["twitter:card"] = "photo"; // current proof of concept is tailored to work with images
-	$meta["twitter:site"] = $wgSitename;
-
-	$dbr = wfGetDB( DB_SLAVE );
-	$pageId = $out->getWikiPage()->getId();
-	$res = $dbr->select(
-		'revision',
-		'rev_user_text',
-		'rev_page = "' . $pageId . '"',
-		__METHOD__,
-		array( 'ORDER BY' => 'rev_timestamp ASC limit 1' )
-	);
-	if ( $row = $res->fetchObject() ) {
-		$meta["twitter:creator"] = $row->rev_user_text;
-	}
-
-	$meta["twitter:title"] = $title->getText();
-	$img_name = $title->getText();
-
-	if ( isset( $out->mDescription ) ) {
-		// Uses the Description2 extension
-		$meta["twitter:description"] = $out->mDescription;
-	} else {
-		// Gets description for content
-		$dbr = wfGetDB( DB_SLAVE );
-		$img_name = str_replace(' ', '_', $img_name); //TODO: use Title object instead to get a proper title
-		$res = $dbr->select(
-			'image',
-			'img_description',
-			'img_name = "' . $img_name . '"',
-			__METHOD__,
-			array( 'ORDER BY' => 'img_description ASC limit 1' )
-		);
-		if ( $row = $res->fetchObject() ) {
-			$meta["twitter:description"] = $row->img_description;
-		}
-	}
-
-	if ( $isMainpage ) {
-		$meta["twitter:url"] = wfExpandUrl( $wgLogo );
-	} else {
-		$meta["twitter:url"] = $title->getFullURL();
-	}
-
-	// Gets large thumbnail path
-	$img = wfFindFile( $title );
-	if ( $img ) {
-		$thumb = $img->transform( array( 'width' => 400 ), 0 );
-		$meta["twitter:image"] = $wgServer . $thumb->getUrl();
-	} else {
+	if ( !class_exists( 'ApiQueryExtracts') || !class_exists( 'ApiQueryPageImages' ) ) {
+		wfDebugLog( 'TwitterCards', 'TextExtracts or PageImages extension is missing.' );
 		return true;
 	}
 
-	$meta["twitter:image:width"] = 600;
-	$meta["twitter:image:height"] = 600;
+	$title = $out->getTitle();
+	if ( $title->inNamespaces( NS_SPECIAL ) ) {
+		// Skip
+		return true;
+	}
 
-	// HTML output
+	$meta = array(
+		'twitter:card' => 'summary',
+		'twitter:title' => $title->getFullText(),
+	);
+
+	if ( $wgTwitterCardsHandle ) {
+		$meta['twitter:site'] = $wgTwitterCardsHandle;
+	}
+
+	// @todo does this need caching?
+	$api = new ApiMain(
+		new FauxRequest( array(
+			'action' => 'query',
+			'titles' => $title->getFullText(),
+			'prop' => 'extracts|pageimages',
+			'exchars' => '200', // limited by twitter
+			'exsectionformat' => 'plain',
+			'explaintext' => '1',
+			'exintro' => '1',
+			'piprop' => 'thumbnail',
+			'pithumbsize' => 120 * 2, // twitter says 120px minimum, let's double it
+		) )
+	);
+
+	$api->execute();
+	$data = $api->getResult()->getData();
+	$pageData = $data['query']['pages'][$title->getArticleID()];
+
+	$meta['twitter:description'] = $pageData['extract']['*'];
+	if ( isset( $pageData['thumbnail'] ) ) { // not all pages have images
+		$meta['twitter:image'] = $pageData['thumbnail']['source'];
+	}
+
+	// Add to OutputPage
 	foreach ( $meta as $name => $value ) {
-		if ( $value ) {
-			if ( isset( OutputPage::$metaAttrPrefixes ) && isset( OutputPage::$metaAttrPrefixes['name'] ) ) {
-				$out->addMeta( "name:$name", $value );
-			} else {
-				$out->addHeadItem( "meta:name:$name", "	" . Html::element( 'meta', array( 'name' => $name, 'content' => $value ) ) . "\n" );
-			}
-		}
+		$out->addHeadItem( "meta:name:$name", "	" . Html::element( 'meta', array( 'name' => $name, 'content' => $value ) ) . "\n" );
 	}
 
 	return true;
