@@ -26,7 +26,15 @@ $wgExtensionCredits['other'][] = array (
 	'author' => array( 'Harsh Kothari', 'Kunal Mehta' ),
 	'descriptionmsg' => 'twittercards-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:TwitterCards',
+	'version' => '0.2',
 );
+
+/**
+ * Whether to use OpenGraph tags if a fallback is acceptable
+ * @see https://dev.twitter.com/docs/cards/markup-reference
+ * @var bool
+ */
+$wgTwitterCardsPreferOG = true;
 
 /**
  * Set this to your wiki's twitter handle
@@ -38,68 +46,6 @@ $wgTwitterCardsHandle = '';
 $wgExtensionMessagesFiles['TwitterCardsMagic'] = __DIR__ . '/TwitterCards.magic.php';
 $wgMessagesDirs['TwitterCards'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['TwitterCards'] = __DIR__ . '/TwitterCards.i18n.php';
+$wgAutoloadClasses['TwitterCardsHooks'] = __DIR__ . '/TwitterCards.hooks.php';
+$wgHooks['BeforePageDisplay'][] = 'TwitterCardsHooks::onBeforePageDisplay';
 
-$wgHooks['BeforePageDisplay'][] = 'efTwitterCardsSummary';
-
-/**
- * Adds TwitterCards metadata for Images.
- * This is a callback method for the BeforePageDisplay hook.
- *
- * @param OutputPage &$out
- * @param SkinTemplate &$sk
- * @return bool
- */
-function efTwitterCardsSummary( OutputPage &$out, SkinTemplate &$sk ) {
-	global $wgTwitterCardsHandle;
-
-	if ( !class_exists( 'ApiQueryExtracts') || !class_exists( 'ApiQueryPageImages' ) ) {
-		wfDebugLog( 'TwitterCards', 'TextExtracts or PageImages extension is missing.' );
-		return true;
-	}
-
-	$title = $out->getTitle();
-	if ( $title->inNamespaces( NS_SPECIAL ) ) {
-		// Skip
-		return true;
-	}
-
-	$meta = array(
-		'twitter:card' => 'summary',
-		'twitter:title' => $title->getFullText(),
-	);
-
-	if ( $wgTwitterCardsHandle ) {
-		$meta['twitter:site'] = $wgTwitterCardsHandle;
-	}
-
-	// @todo does this need caching?
-	$api = new ApiMain(
-		new FauxRequest( array(
-			'action' => 'query',
-			'titles' => $title->getFullText(),
-			'prop' => 'extracts|pageimages',
-			'exchars' => '200', // limited by twitter
-			'exsectionformat' => 'plain',
-			'explaintext' => '1',
-			'exintro' => '1',
-			'piprop' => 'thumbnail',
-			'pithumbsize' => 120 * 2, // twitter says 120px minimum, let's double it
-		) )
-	);
-
-	$api->execute();
-	$data = $api->getResult()->getData();
-	$pageData = $data['query']['pages'][$title->getArticleID()];
-
-	$meta['twitter:description'] = $pageData['extract']['*'];
-	if ( isset( $pageData['thumbnail'] ) ) { // not all pages have images
-		$meta['twitter:image'] = $pageData['thumbnail']['source'];
-	}
-
-	// Add to OutputPage
-	foreach ( $meta as $name => $value ) {
-		$out->addHeadItem( "meta:name:$name", "	" . Html::element( 'meta', array( 'name' => $name, 'content' => $value ) ) . "\n" );
-	}
-
-	return true;
-}
