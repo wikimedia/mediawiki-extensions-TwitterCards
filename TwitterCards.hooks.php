@@ -60,20 +60,25 @@ class TwitterCardsHooks {
 	}
 
 	protected static function summaryCard( OutputPage $out ) {
-		if ( !class_exists( 'ApiQueryExtracts') || !class_exists( 'ApiQueryPageImages' ) ) {
-			wfDebugLog( 'TwitterCards', 'TextExtracts or PageImages extension is missing for summary card.' );
+		if ( !class_exists( 'ApiQueryExtracts') ) {
+			wfDebugLog( 'TwitterCards', 'TextExtracts extension is missing for summary card.' );
 			return;
 		}
 
 		$title = $out->getTitle();
 		$meta = self::basicInfo( $title, 'summary' );
 
+		$props = 'extracts';
+		if ( class_exists( 'ApiQueryPageImages' ) ) {
+			$props .= '|pageimages';
+		}
+
 		// @todo does this need caching?
 		$api = new ApiMain(
 			new FauxRequest( array(
 				'action' => 'query',
 				'titles' => $title->getFullText(),
-				'prop' => 'extracts|pageimages',
+				'prop' => $props,
 				'exchars' => '200', // limited by twitter
 				'exsectionformat' => 'plain',
 				'explaintext' => '1',
@@ -88,7 +93,7 @@ class TwitterCardsHooks {
 		$pageData = $data['query']['pages'][$title->getArticleID()];
 
 		$meta['twitter:description'] = $pageData['extract']['*'];
-		if ( isset( $pageData['thumbnail'] ) ) { // not all pages have images
+		if ( isset( $pageData['thumbnail'] ) ) { // not all pages have images or extension isn't installed
 			$meta['twitter:image'] = $pageData['thumbnail']['source'];
 		}
 
