@@ -60,7 +60,7 @@ class TwitterCardsHooks {
 	}
 
 	protected static function summaryCard( OutputPage $out ) {
-		if ( !class_exists( 'ApiQueryExtracts') ) {
+		if ( !defined( 'TEXT_EXTRACTS_INSTALLED') ) {
 			wfDebugLog( 'TwitterCards', 'TextExtracts extension is missing for summary card.' );
 			return;
 		}
