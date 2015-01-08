@@ -89,10 +89,20 @@ class TwitterCardsHooks {
 		);
 
 		$api->execute();
-		$data = $api->getResult()->getData();
-		$pageData = $data['query']['pages'][$title->getArticleID()];
+		if ( defined( 'ApiResult::META_CONTENT' ) ) {
+			$pageData = $api->getResult()->getResultData(
+				array( 'query', 'pages', $title->getArticleID() )
+			);
+			$contentKey = isset( $pageData['extract'][ApiResult::META_CONTENT] )
+				? $pageData['extract'][ApiResult::META_CONTENT]
+				: '*';
+		} else {
+			$data = $api->getResult()->getData();
+			$pageData = $data['query']['pages'][$title->getArticleID()];
+			$contentKey = '*';
+		}
 
-		$meta['twitter:description'] = $pageData['extract']['*'];
+		$meta['twitter:description'] = $pageData['extract'][$contentKey];
 		if ( isset( $pageData['thumbnail'] ) ) { // not all pages have images or extension isn't installed
 			$meta['twitter:image'] = $pageData['thumbnail']['source'];
 		}
