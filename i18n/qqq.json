@@ -2,8 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Raymond",
-			"Shirayuki"
+			"Shirayuki",
+			"Umherirrender"
 		]
 	},
-	"twittercards-desc": "{{desc|name=Twitter Cards|url=http://www.mediawiki.org/wiki/Extension:TwitterCards}}\nAnother description:\n* \"Adds meta tags to enable Twitter cards on Mediawiki.\""
+	"twittercards-desc": "{{desc|name=Twitter Cards|url=https://www.mediawiki.org/wiki/Extension:TwitterCards}}\nAnother description:\n* \"Adds meta tags to enable Twitter cards on Mediawiki.\""
 }
