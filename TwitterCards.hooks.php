@@ -18,14 +18,8 @@ class TwitterCardsHooks {
 
 	public static function onBeforePageDisplay( OutputPage $out, SkinTemplate $sk ) {
 		$title = $out->getTitle();
-		if ( $title->inNamespace( NS_SPECIAL ) ) {
-			return true;
-		//} elseif ( $title->inNamespace( NS_FILE ) ) {
-		//	self::photoCard( $out );
-		//	return true;
-		} else {
+		if ( $title->exists() && $title->hasContentModel( CONTENT_MODEL_WIKITEXT ) ) {
 			self::summaryCard( $out );
-			return true;
 		}
 	}
 
