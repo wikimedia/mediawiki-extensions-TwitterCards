@@ -45,7 +45,6 @@ $wgTwitterCardsHandle = '';
 
 $wgExtensionMessagesFiles['TwitterCardsMagic'] = __DIR__ . '/TwitterCards.magic.php';
 $wgMessagesDirs['TwitterCards'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['TwitterCards'] = __DIR__ . '/TwitterCards.i18n.php';
 $wgAutoloadClasses['TwitterCardsHooks'] = __DIR__ . '/TwitterCards.hooks.php';
 $wgHooks['BeforePageDisplay'][] = 'TwitterCardsHooks::onBeforePageDisplay';
 
