@@ -2,7 +2,7 @@
 /**
  * TwitterCards
  * Extensions
- * @author Harsh Kothari (http://mediawiki.org/wiki/User:Harsh4101991) <harshkothari410@gmail.com>
+ * @author Harsh Kothari (https://mediawiki.org/wiki/User:Harsh4101991) <harshkothari410@gmail.com>
  * @author Kunal Mehta <legoktm@gmail.com>
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  *
