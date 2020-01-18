@@ -16,35 +16,16 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die( "This is an extension to the MediaWiki package and cannot be run standalone." );
+if ( function_exists( 'wfLoadExtension' ) ) {
+	wfLoadExtension( 'TwitterCards' );
+	// Keep i18n globals so mergeMessageFileList.php doesn't break
+	$wgMessagesDirs['TwitterCards'] = __DIR__ . '/i18n';
+	wfWarn(
+		'Deprecated PHP entry point used for the TwitterCards extension. ' .
+		'Please use wfLoadExtension instead, ' .
+		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+	);
+	return;
+} else {
+	die( 'This version of the TwitterCards extension requires MediaWiki 1.29+' );
 }
-
-$wgExtensionCredits['other'][] = array (
-	'path' => __FILE__,
-	'name' => 'TwitterCards',
-	'author' => array( 'Harsh Kothari', 'Kunal Mehta' ),
-	'descriptionmsg' => 'twittercards-desc',
-	'url' => 'https://www.mediawiki.org/wiki/Extension:TwitterCards',
-	'version' => '0.2',
-);
-
-/**
- * Whether to use OpenGraph tags if a fallback is acceptable
- * @see https://dev.twitter.com/docs/cards/markup-reference
- * @var bool
- */
-$wgTwitterCardsPreferOG = true;
-
-/**
- * Set this to your wiki's twitter handle
- * for example: '@wikipedia'
- * @var string
- */
-$wgTwitterCardsHandle = '';
-
-$wgExtensionMessagesFiles['TwitterCardsMagic'] = __DIR__ . '/TwitterCards.magic.php';
-$wgMessagesDirs['TwitterCards'] = __DIR__ . '/i18n';
-$wgAutoloadClasses['TwitterCardsHooks'] = __DIR__ . '/TwitterCards.hooks.php';
-$wgHooks['BeforePageDisplay'][] = 'TwitterCardsHooks::onBeforePageDisplay';
-
