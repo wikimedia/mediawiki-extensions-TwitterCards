@@ -54,11 +54,6 @@ class TwitterCardsHooks {
 	}
 
 	protected static function summaryCard( OutputPage $out ) {
-		if ( !defined( 'TEXT_EXTRACTS_INSTALLED') ) {
-			wfDebugLog( 'TwitterCards', 'TextExtracts extension is missing for summary card.' );
-			return;
-		}
-
 		$title = $out->getTitle();
 		$meta = self::basicInfo( $title, 'summary' );
 
