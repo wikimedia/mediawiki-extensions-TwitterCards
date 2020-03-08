@@ -5,18 +5,21 @@ class TwitterCardsHooks {
 	/**
 	 * Twitter --> OpenGraph fallbacks
 	 * Only used if $wgTwitterCardsPreferOG = true;
-	 * @var array
+	 * @var string[]
 	 */
-	static $fallbacks = array(
+	private static $fallbacks = [
 		'twitter:description' => 'og:description',
 		'twitter:title' => 'og:title',
 		'twitter:image:src' => 'og:image',
 		'twitter:image:width' => 'og:image:width',
 		'twitter:image:height' => 'og:image:height',
-	);
+	];
 
-
-	public static function onBeforePageDisplay( OutputPage $out, SkinTemplate $sk ) {
+	/**
+	 * @param OutputPage $out
+	 * @param Skin $sk
+	 */
+	public static function onBeforePageDisplay( OutputPage $out, Skin $sk ) {
 		$title = $out->getTitle();
 		if ( $title->exists() && $title->hasContentModel( CONTENT_MODEL_WIKITEXT ) ) {
 			self::summaryCard( $out );
@@ -30,10 +33,10 @@ class TwitterCardsHooks {
 	 */
 	protected static function basicInfo( Title $title, $type ) {
 		global $wgTwitterCardsHandle;
-		$meta = array(
+		$meta = [
 			'twitter:card' => $type,
 			'twitter:title' => $title->getFullText(),
-		);
+		];
 
 		if ( $wgTwitterCardsHandle ) {
 			$meta['twitter:site'] = $wgTwitterCardsHandle;
@@ -42,17 +45,24 @@ class TwitterCardsHooks {
 		return $meta;
 	}
 
+	/**
+	 * @param array $meta
+	 * @param OutputPage $out
+	 */
 	protected static function addMetaData( array $meta, OutputPage $out ) {
 		global $wgTwitterCardsPreferOG;
 		foreach ( $meta as $name => $value ) {
 			if ( $wgTwitterCardsPreferOG && isset( self::$fallbacks[$name] ) ) {
 				$name = self::$fallbacks[$name];
 			}
-			$out->addHeadItem( "meta:name:$name", "	" . Html::element( 'meta', array( 'name' => $name, 'content' => $value ) ) . "\n" );
+			$out->addHeadItem( "meta:name:$name", "	" .
+				Html::element( 'meta', [ 'name' => $name, 'content' => $value ] ) . "\n" );
 		}
-
 	}
 
+	/**
+	 * @param OutputPage $out
+	 */
 	protected static function summaryCard( OutputPage $out ) {
 		$title = $out->getTitle();
 		$meta = self::basicInfo( $title, 'summary' );
@@ -64,7 +74,7 @@ class TwitterCardsHooks {
 
 		// @todo does this need caching?
 		$api = new ApiMain(
-			new FauxRequest( array(
+			new FauxRequest( [
 				'action' => 'query',
 				'titles' => $title->getFullText(),
 				'prop' => $props,
@@ -74,13 +84,13 @@ class TwitterCardsHooks {
 				'exintro' => '1',
 				'piprop' => 'thumbnail',
 				'pithumbsize' => 120 * 2, // twitter says 120px minimum, let's double it
-			) )
+			] )
 		);
 
 		$api->execute();
 		if ( defined( 'ApiResult::META_CONTENT' ) ) {
 			$pageData = $api->getResult()->getResultData(
-				array( 'query', 'pages', $title->getArticleID() )
+				[ 'query', 'pages', $title->getArticleID() ]
 			);
 			$contentKey = isset( $pageData['extract'][ApiResult::META_CONTENT] )
 				? $pageData['extract'][ApiResult::META_CONTENT]
@@ -97,6 +107,5 @@ class TwitterCardsHooks {
 		}
 
 		self::addMetaData( $meta, $out );
-
 	}
 }

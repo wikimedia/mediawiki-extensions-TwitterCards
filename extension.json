@@ -24,7 +24,7 @@
 		"TwitterCardsMagic": "TwitterCards.magic.php"
 	},
 	"AutoloadClasses": {
-		"TwitterCardsHooks": "TwitterCards.hooks.php"
+		"TwitterCardsHooks": "TwitterCardsHooks.php"
 	},
 	"Hooks": {
 		"BeforePageDisplay": "TwitterCardsHooks::onBeforePageDisplay"
