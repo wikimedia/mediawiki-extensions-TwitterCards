@@ -2,8 +2,8 @@
 /**
  *
  */
-$magicWords = array();
+$magicWords = [];
 /** English (English) */
-$magicWords['en'] = array(
-	'setmainimage' => array( 0, 'setmainimage' ),
-);
+$magicWords['en'] = [
+	'setmainimage' => [ 0, 'setmainimage' ],
+];
