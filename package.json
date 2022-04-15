@@ -1,4 +1,5 @@
 {
+	"name": "TwitterCards",
 	"private": true,
 	"scripts": {
 		"test": "grunt test"
