@@ -63,6 +63,7 @@ class TwitterCardsHooks {
 	 * @param OutputPage $out
 	 */
 	protected static function summaryCard( OutputPage $out ) {
+        global $wgTwitterCardsFallbackImageURL;
 		$title = $out->getTitle();
 		$meta = self::basicInfo( $title, 'summary' );
 
@@ -104,6 +105,7 @@ class TwitterCardsHooks {
 		if ( isset( $pageData['thumbnail'] ) ) { // not all pages have images or extension isn't installed
 			$meta['twitter:image'] = $pageData['thumbnail']['source'];
 		}
+        if ( empty( $meta['twitter:image'] ) && !empty( $wgTwitterCardsFallbackImageURL ) ) $meta['twitter:image'] = $wgTwitterCardsFallbackImageURL;
 
 		self::addMetaData( $meta, $out );
 	}

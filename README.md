@@ -25,3 +25,6 @@ Whether to use OpenGraph tags if a fallback is acceptable.
 
 #### $wgTwitterCardsHandle
 Set this to your wiki's twitter handle for example: '*@wikipedia*'
+
+#### $wgTwitterCardsFallbackImageURL
+Set a full URL to a fallback image if articles do not contain one
