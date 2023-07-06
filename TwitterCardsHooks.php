@@ -55,8 +55,7 @@ class TwitterCardsHooks {
 			if ( $wgTwitterCardsPreferOG && isset( self::$fallbacks[$name] ) ) {
 				$name = self::$fallbacks[$name];
 			}
-			$out->addHeadItem( "meta:name:$name", "	" .
-				Html::element( 'meta', [ 'name' => $name, 'content' => $value ] ) . "\n" );
+			$out->addHeadItem( "meta:name:$name", Html::element( 'meta', [ 'name' => $name, 'content' => $value ] ) );
 		}
 	}
 
