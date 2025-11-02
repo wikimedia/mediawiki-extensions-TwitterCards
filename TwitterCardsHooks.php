@@ -1,5 +1,9 @@
 <?php
 
+use MediaWiki\Html\Html;
+use MediaWiki\Request\FauxRequest;
+use MediaWiki\Title\Title;
+
 class TwitterCardsHooks {
 
 	/**
